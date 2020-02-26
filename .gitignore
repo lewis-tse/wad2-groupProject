@@ -1,0 +1,69 @@
+# Cloned from https://github.com/github/gitignore/blob/master/Global/Windows.gitignore
+# Used under Creative Commons Zero v1.0 Universal: https://github.com/github/gitignore/blob/master/LICENSE
+
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Cloned from https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
+# Used under Creative Commons Zero v1.0 Universal: https://github.com/github/gitignore/blob/master/LICENSE
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Cloned important parts from https://github.com/github/gitignore/blob/master/Python.gitignore
+# Used under Creative Commons Zero v1.0 Universal: https://github.com/github/gitignore/blob/master/LICENSE
+
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+  
+__pycache__/
+*.py[cod]
+*$py.class
+
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+pip-log.txt
+pip-delete-this-directory.txt
+
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
