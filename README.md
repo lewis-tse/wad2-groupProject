@@ -11,7 +11,7 @@ I've setup using Anaconda Prompt so these instructions apply to that not cmd.
 First move to the directory that you have cloned the repo into.
 Then:
 ```
-conda create -n groupProject python=3.7.2
+conda create -n ptfinder python=3.7.2
 ```
 
 Once you are in the groupProject venv run the following commands:
@@ -22,7 +22,7 @@ pip install pillow
 
 Then to test that your install works do:
 ```
-cd groupProject
+cd ptfinder
 ```
 then,
 ```
@@ -31,7 +31,7 @@ python manage.py runserver
 finally simply go to http://127.0.0.1:8000/ to test.
 
 ## Contributors
-- [**Glen MacGilp**](https://github.com/)
+- [**Glen MacGilp**](https://github.com/glenlloyd-macgilp)
 - [**Cameron Martin**](https://github.com/CJMartin99)
 - [**Lewis Tse**](https://github.com/lewis-tse/)
 - [**Kieran Watson**](https://github.com/KierWats)
