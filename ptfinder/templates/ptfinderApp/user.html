@@ -1,0 +1,64 @@
+{% extends 'ptfinderApp/user-template.html' %}
+{% load static %}
+
+{% block title_block %}
+{% endblock %}
+
+{% block profile-grid-1 %}
+	<img class="profile-img" src="https://via.placeholder.com/450" alt="">
+{% endblock %}
+
+{% block profile-grid-2 %}
+	<div class="table-responsive">
+		<table class="table table-hover user-bookings">
+			<thead>
+				<tr>
+					<th colspan="3" scope="col">Current Bookings</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Retrieve user booking data from models 
+				<tr>
+					<td>Booking ID</td>
+					<td>Trainer Name</td>
+					<td>Link?</td>
+				</tr>
+				-->
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
+{% block profile-grid-3 %}
+	<div class="table-responsive">
+		<table class="table table-hover user-reviews">
+			<thead>
+				<tr>
+					<th colspan="3" scope="col">My Reviews</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Retrieve user review data from models 
+				<tr>
+					<td>Trainer Name</td>
+					<td>Review Comment (truncate)</td>
+					<td>Star Rating</td>-->
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
+{% block profile-grid-4 %}
+	<!-- Name, DoB?, Location -->
+	<br>
+	{% comment %}
+		{% if loggedInUser == thisUser: %}
+			<button type="button" onclick="window.location.href = '';" class="btn btn-dark btn-lg btn-block">Edit Profile</button>
+	{% endcomment %}
+{% endblock %}
+
+{% block profile-grid-5 %}
+{% endblock %}
+
+{% block profile-grid-6 %}
+{% endblock %}

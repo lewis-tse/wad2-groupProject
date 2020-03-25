@@ -1,0 +1,55 @@
+{% extends 'ptfinderApp/user-template.html' %}
+{% load static %}
+
+{% block title_block %}
+{% endblock %}
+
+{% block profile-grid-1 %}
+    <img class="profile-img" src="https://via.placeholder.com/450" alt="">
+{% endblock %}
+
+{% block profile-grid-2 %}
+    <div class="container-fluid">
+        <div class="row centre-content">
+            <div class="col">
+                <h5>Rating:</h5>
+                {% comment retrieve rating %}{% endcomment %}
+            </div>
+        </div>
+        <div class="row centre-content">
+            <div class="col">
+                <br>
+                <h5>Price:</h5> {% comment retrieve price %}{% endcomment %}
+            </div>
+        </div>
+        <div class="row centre-content">
+            <div class="col">
+                <br>
+                <h5>Contact Number: +## #### ### ###</h5> {% comment retrieve contact number or possibly multiple details? %}{% endcomment %}    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col trainer-btn">
+                <button type="button" onclick="window.location.href = '';" class="btn btn-dark btn-lg btn-block">Book Now</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block profile-grid-3 %}
+    Google Maps API intergration here pls
+{% endblock %}
+
+{% block profile-grid-4 %}
+    Retrieve Trainer specialism data from models
+{% endblock %}
+
+{% block profile-grid-5 %}
+	{% comment %}
+		{% if isTrainer && loggedInUser == thisUser: %}
+			<button type="button" onclick="window.location.href = '';" class="btn btn-dark btn-lg btn-block">Edit Profile</button>
+	{% endcomment %}
+{% endblock %}
+
+{% block profile-grid-6 %}
+{% endblock %}

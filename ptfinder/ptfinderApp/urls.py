@@ -4,6 +4,7 @@ from ptfinderApp import views
 app_name = 'ptfinder'
 
 urlpatterns = [
+    path('', views.index, name="index"),
     path('', views.index, name='index'),
     path('user/', views.user, name='user'),
     path('user/login/', views.login , name='login'),

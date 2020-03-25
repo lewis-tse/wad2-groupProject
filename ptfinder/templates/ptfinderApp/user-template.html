@@ -1,0 +1,45 @@
+{% extends 'ptfinderApp/base.html' %}
+{% load static %}
+
+{% block title_block %}
+{% endblock %}
+
+{% block body_block %}
+<div class="container-fluid profile py-3">
+    <div class="row profile-row">
+        <div class="col-12 col-md-4 centre-content">
+            {% block profile-grid-1 %}
+            {% endblock %}
+        </div>
+        <div class="col-md-8 card-deck">
+            <div class="col-md-6 card profile-card">
+                <div class="card-text py-2">
+                    {% block profile-grid-2 %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="col-md-6 card profile-card">
+                <div class="card-text py-2">
+                    {% block profile-grid-3 %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12 col-md-4">
+            {% block profile-grid-4 %}
+            {% endblock %}
+        </div>
+        <div class="col-12 col-md-4">
+            {% block profile-grid-5 %}
+            {% endblock %}
+        </div>
+        <div class="col-12 col-md-4">
+            {% block profile-grid-6 %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
