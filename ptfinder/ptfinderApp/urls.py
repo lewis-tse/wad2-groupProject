@@ -5,7 +5,6 @@ app_name = 'ptfinder'
 
 urlpatterns = [
     path('', views.index, name="index"),
-    path('', views.index, name='index'),
     path('user/', views.user, name='user'),
     path('user/login/', views.login , name='login'),
     path('user/register/trainer', views.trainer_register , name='trainer_register'),
