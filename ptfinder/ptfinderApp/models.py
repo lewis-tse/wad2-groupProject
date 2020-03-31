@@ -4,15 +4,14 @@ import datetime
 
 # Create your models here.
 class UserProfile(models.Model):
-    account = models.OneToOneField(User, on_delete=models.CASCADE)
+    account = models.OneToOneField(User, default=None, null=False, on_delete=models.CASCADE)
+    #To access username, firstname, lastname, email and password use:
+    #account.username
+    #account.first_name
+    #account.last_name
+    #account.email
+    #account.password
     
-    #Commented lines are not needed if we use the line above, but that means we
-    #need to change the names of the fields elsewhere in the code
-    
-    #username = models.CharField(max_length=30, unique=True)
-    #firstname = models.CharField(max_length=20)
-    #surname = models.CharField(max_length=20)
-    #email = models.EmailField()
     experience = models.CharField(max_length=512)
     sex = models.CharField(max_length=16) 
     location = models.CharField(max_length=30)
@@ -40,11 +39,12 @@ class Gym(models.Model):
         
 class Trainer(models.Model):
     t_account = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
-    
-    #t_username = models.CharField(max_length=30, unique=True, default="")
-    #firstname = models.CharField(max_length=20, default="")
-    #surname = models.CharField(max_length=20, default="")
-    #email = models.EmailField(blank=False, default=None)
+    #To access username, firstname, lastname, email and password use:
+    #t_account.username
+    #t_account.first_name
+    #t_account.last_name
+    #t_account.email
+    #t_account.password
     
     g_id = models.ForeignKey(Gym, on_delete=models.CASCADE, default=None)
     contact_no = models.CharField(max_length=14, default=0)
@@ -52,6 +52,9 @@ class Trainer(models.Model):
     sex = models.CharField(max_length=16, default="unspecified")
     img = models.ImageField(upload_to='trainerProfile_images',blank=True,default=None)
     price = models.CharField(max_length=10, default="unknown")
+    
+    def getGymName(self):
+        return self.g_id.name
     
     def __str__(self):
         return self.t_account.username

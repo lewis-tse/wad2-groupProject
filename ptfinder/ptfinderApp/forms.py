@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from ptfinderApp.models import UserProfile, Trainer
+from ptfinderApp.models import UserProfile, Trainer, Booking
 
 class UserForm(forms.ModelForm):
         password = forms.CharField(widget=forms.PasswordInput())

@@ -11,13 +11,12 @@
 <strong>Thanks for registering</strong>
 <a href="{% url 'ptfinder:index' %}">return to homepage</a><br />
 {% else %}
-<strong>Register here!</strong><br />
-<form id="user_form" method="post" action="{% url 'ptfinder:register' %}" enctype="multipart/form-data">
+<strong>Register as a Trainer!</strong><br />
+<form id="trainer_form" method="post" action="{% url 'ptfinder:trainer_register' %}" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{ user_form.as_p }}
 	{{ profile_form.as_p}}
-	<input type="submit" name="userSubmit" value="register" />
+	<input type="submit" name="trainerSubmit" value="register" />
 </form>
-<a href="{% url 'ptfinder:register_trainer' %}">or sign up as a trainer</a><br />
 {% endif %}
 {% endblock %}
