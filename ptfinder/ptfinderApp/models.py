@@ -46,7 +46,7 @@ class Trainer(models.Model):
     #t_account.email
     #t_account.password
     
-    g_id = models.ForeignKey(Gym, on_delete=models.CASCADE, default=None)
+    g_id = models.ForeignKey(Gym, on_delete=models.CASCADE, default=None, blank=True, null=False)
     contact_no = models.CharField(max_length=14, default=0)
     specialism = models.CharField(max_length=512,default="N/A")
     sex = models.CharField(max_length=16, default="unspecified")
