@@ -1,8 +1,12 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.views import View
 from ptfinderApp.forms import UserForm, UserProfileForm, TrainerProfileForm
+from ptfinderApp.models import UserProfile
 
 def index(request):
     context_dict = {}
@@ -80,8 +84,26 @@ def trainer_register(request):
 
     return render(request, 'ptfinderApp/trainer-register.html', context=context_dict)
 
-def edit_profile(request):
-    context_dict = {}
+@login_required
+def edit_profile(request, username):
+    userprofile = UserProfile.objects.get_or_create(account=request.user)[0]
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST,instance=userprofile)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            custom_form = profile_form.save(commit=False)
+            custom_form.user = user_form
+            custom_form.save()
+            return redirect('ptfinder:user')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=userprofile)
+            
+    context_dict = {'user_form':user_form, 'profile_form':profile_form}
 
     return render(request, 'ptfinderApp/edit-profile.html', context=context_dict)
     

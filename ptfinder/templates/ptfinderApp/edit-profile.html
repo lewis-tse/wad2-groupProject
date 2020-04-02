@@ -2,7 +2,14 @@
 {% load static %}
 
 {% block title_block %}
+	Update Profile
 {% endblock %}
 
 {% block body_block %}
+<form id="edit-profile" method="post" action="{% url 'ptfinder:edit_profile' username %}"enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ user_form.as_p }}
+	{{ profile_form.as_p }}
+	<input type="submit" name="editProfile" value="Confirm changes" />
+</form>
 {% endblock %}
