@@ -22,6 +22,9 @@ Gym
 			{{ gyms.address_postcode }} <br>
 			Gym City: {{ gyms.city }} <br>
 			gym Description: {{ gyms.description }} <br>
+			<div>
+            			<img src="{% static " ptfinder/media/gym_images/{{ gyms.name }}.jpg" %}" alt="Oops! it appears this gym doesnt have a picture" width=600 />
+           		</div>
 
 		{% else %}
 			<ul>
