@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from ptfinderApp.models import UserProfile, Trainer, Booking, Gym
+import datetime
 
 
 class UserForm(forms.ModelForm):

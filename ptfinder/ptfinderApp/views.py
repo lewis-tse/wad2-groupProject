@@ -102,6 +102,9 @@ def register(request):
             registered = True
         else:
             print(userForm.errors, userProfileForm.errors)
+    else:
+        userForm = UserForm()
+        userProfileForm = TrainerProfileForm()
 
     context_dict = {'base_user_form': userForm, 'user_form': userProfileForm, 'registered': registered}
 
@@ -110,11 +113,11 @@ def register(request):
 def trainer_register(request):
     registered = False
     if request.method == 'POST':
-        user_form = UserForm(request.POST)
+        base_user_form = UserForm(request.POST)
         trainer_form = TrainerProfileForm(request.POST)
         
-        if user_form.is_valid() and trainer_form.is_valid():
-            user = user_form.save()
+        if base_user_form.is_valid() and trainer_form.is_valid():
+            user = base_user_form.save()
             user.set_password(user.password)
             user.save()
             trainer = trainer_form.save(commit=False)
@@ -126,7 +129,7 @@ def trainer_register(request):
             trainer.save()
             registered = True
         else:
-            print(user_form.errors, trainer_form.errors)
+            print(base_user_form.errors, trainer_form.errors)
     else:
         base_user_form = UserForm()
         trainer_form = TrainerProfileForm()
