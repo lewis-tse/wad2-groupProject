@@ -14,69 +14,67 @@
                 Train With Us
             {% endblock %}
 		</title>
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-		    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-        <script src="https://kit.fontawesome.com/243f54795c.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{% static 'ptfinder/css/main.css' %}">
-        <style>
-            body {
-              background-image:linear-gradient(-135deg, #372185 25%,#520b0f 100%);
-              background-size: cover;
-              background-repeat: no-repeat;
-              width: 100%;
-              height: 160vh;  
-            }
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="{% static 'ptfinder/css/main.css' %}">
+            <style>
+          body {
+    background-image:linear-gradient(-135deg, #372185 25%,#520b0f 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+  height: 160vh;
+    
+  }
 
-            main {
-                width: 90vw;
-                margin: 0 auto;
-                padding: 30px 20px;
-                min-height: calc(100vh - 50px); 
-            }
+main {
+    width: 90vw;
+    margin: 0 auto;
+    padding: 30px 20px;
+    min-height: calc(100vh - 50px); 
+}
+footer {
+  width: 100%;
+  height: 60px;
+  flex-shrink: 0;
+  background-color: #134c7d;
+ 
+}
+    .button {
+  background-color: transparent;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  padding: 7px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 6px 2px;
+  cursor: pointer;
+  border: 2px solid white;
+  position: absolute;
+  right: 50px;
+}
+.button:hover {
+  text-decoration: none;
+  background-color: white;
+  border-color: white;
+  color: black;
+}
+.navbar-fixed-top {
+background: transparent;
+}
 
-            footer {
-              width: 100%;
-              height: 60px;
-              flex-shrink: 0;
-              background-color: #134c7d;
-
-            }
-            .button {
-              background-color: transparent;
-              border-radius: 30px;
-              border: none;
-              color: white;
-              padding: 7px 24px;
-              text-align: center;
-              text-decoration: none;
-              display: inline-block;
-              font-size: 16px;
-              margin: 6px 2px;
-              cursor: pointer;
-              border: 2px solid white;
-              position: absolute;
-              right: 50px;
-            }
-
-            .button:hover {
-              text-decoration: none;
-              background-color: white;
-              border-color: white;
-              color: black;
-            }
-
-            .navbar-fixed-top {
-            background: transparent;
-            }
-
-            .navbar-fixed-top.scrolled {
-              background-color:#0e1f36;
-              color: black;
-            }
-      </style>   
+.navbar-fixed-top.scrolled {
+  background-color:#0e1f36;
+  color: black;
+}
+            </style>   
     </head>
+
+
     <body>
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -100,7 +98,7 @@
                                 <a class="nav-link" href="{% url 'ptfinder:user' %}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">My Bookings</a>
+                                <a class="nav-link" href="{% url 'ptfinder:view_bookings' %}}">My Bookings</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
