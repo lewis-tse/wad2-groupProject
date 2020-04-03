@@ -153,7 +153,7 @@ def add_comment(comment, counter):
 def add_booking(booking, counter):
     user = User.objects.get(username=booking['username'])
     tuser = User.objects.get(username=booking['t_username'])
-    b = Booking.objects.get_or_create(id=counter, username=UserProfile.objects.get(account=user),t_username=Trainer.objects.get(t_account=tuser))[0]
+    b = Booking.objects.get_or_create(id=counter, username=UserProfile.objects.get(account=user),trainer_username=Trainer.objects.get(t_account=tuser))[0]
     #assign attributes
     #b.username = booking['username']
     #b.t_username = booking['t_username']
