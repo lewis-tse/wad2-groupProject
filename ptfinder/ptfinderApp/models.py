@@ -55,6 +55,9 @@ class Trainer(models.Model):
     
     def getGymName(self):
         return self.g_id.name
+        
+    def getName(self):
+        return self.t_account.first_name + ' ' + self.t_account.last_name
     
     def __str__(self):
         return self.t_account.username

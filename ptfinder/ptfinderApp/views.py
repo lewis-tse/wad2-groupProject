@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views import View
 from ptfinderApp.forms import UserForm, UserProfileForm, TrainerProfileForm
-from ptfinderApp.models import UserProfile
+from ptfinderApp.models import UserProfile, Booking
 
 def index(request):
     context_dict = {}
@@ -132,8 +132,22 @@ def create_booking(request):
 
     return render(request, 'ptfinderApp/create-booking.html', context=context_dict)
 
-def view_bookings(request):
+@login_required
+def view_bookings(request, uservar):
     context_dict = {}
+    
+    bookings = Booking.objects.filter(username__account__username=uservar)
+    if bookings:
+       pass
+    else:
+        bookings = Booking.objects.filter(t_username__t_account__username=uservar)
+  
+            
+    
+    context_dict['bookings'] = bookings
+        
+    #context_dict
+    
 
     return render(request, 'ptfinderApp/view-bookings.html', context=context_dict)
     

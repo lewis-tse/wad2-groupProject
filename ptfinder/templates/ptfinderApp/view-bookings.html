@@ -1,0 +1,25 @@
+{% extends 'ptfinderApp/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Bookings
+{% endblock %}
+
+{% block body_block %}       
+    <div class="container-fluid">
+        <div class="row centre-content">
+            <div class="col">
+                <h2><u>Your Bookings</u></h2>
+                    {% for booking in bookings %}<hr><br>
+                        Trainer name: {{ booking.t_username.getName }}<br>
+                        Trainer username: <a href="{% url 'ptfinderApp:trainer_profile' booking.t_username %}">{{ booking.t_username }}</a><br>
+                        Date: {{ booking.datetime }}<br>
+                        Location: {{ booking.location}}
+                        <br>
+                        <hr>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
