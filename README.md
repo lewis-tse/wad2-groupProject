@@ -1,4 +1,4 @@
-# INSERT NAME - WAD2
+# PTFinder - WAD2
 Lab 9 - Team E Group Project
 
 ## Description
@@ -29,6 +29,7 @@ then,
 python manage.py runserver
 ```
 finally simply go to http://127.0.0.1:8000/ to test.
+Deployed on pythonAnywhere (for now) at https://2385606T.pythonanywhere.com
 
 ## Contributors
 - [**Glen MacGilp**](https://github.com/glenlloyd-macgilp)
