@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views import View
 from ptfinderApp.forms import UserForm, UserProfileForm, TrainerProfileForm
-from ptfinderApp.models import UserProfile, Booking
+from ptfinderApp.models import UserProfile, Booking, Gym, Trainer
 
 def index(request):
     context_dict = {}
@@ -108,9 +108,54 @@ def edit_profile(request, username):
     return render(request, 'ptfinderApp/edit-profile.html', context=context_dict)
     
 def gym(request):
+#name, owner, city, address_postcode
     context_dict = {}
-
-    return render(request, 'ptfinderApp/gym.html', context=context_dict)
+    
+    if request.method == 'POST':
+        
+        search = request.POST.get('search')
+        
+        try:
+            gyms = Gym.objects.get(name=search)
+            if gyms:
+                context_dict['gyms'] = gyms
+                context_dict['search_type'] = "specific"
+                print(context_dict)
+                return render(request, 'ptfinderApp/gym.html', context=context_dict)
+        except:
+            pass
+        
+        
+        try:
+            gyms = Gym.objects.filter(owner=search)
+            if gyms:
+                context_dict['gyms'] = gyms
+                context_dict['search_type'] = "generic"
+                return render(request, 'ptfinderApp/gym.html', context=context_dict)
+        except:
+            pass
+            
+        
+        gyms = Gym.objects.filter(address_postcode=search)
+        if gyms:
+            context_dict['gyms'] = gyms
+            context_dict['search_type'] = "generic"
+            return render(request, 'ptfinderApp/gym.html', context=context_dict)        
+            
+        gyms = Gym.objects.filter(city=search) 
+        if gyms:
+            context_dict['gyms'] = gyms
+            context_dict['search_type'] = "generic"
+            return render(request, 'ptfinderApp/gym.html', context=context_dict)
+        
+        return render(request, 'ptfinderApp/gym.html', context=context_dict)
+       
+    else:
+        gyms = Gym.objects.order_by('-name')[:5]
+        context_dict['gyms'] = gyms 
+        context_dict['search_type'] = "generic"
+        return render(request, 'ptfinderApp/gym.html', context=context_dict)
+        
 
 def gym_profile(request):
     context_dict = {}
@@ -119,8 +164,8 @@ def gym_profile(request):
     
 def contact_us(request):
     context_dict = {}
-
-    return render(request, 'ptfinderApp/contact-us.html', context=context_dict)
+    
+    return render(request, 'ptfinderApp/contact_us.html', context=context_dict)
 
 def book(request):
     context_dict = {}
@@ -153,7 +198,25 @@ def view_bookings(request, uservar):
     
 def trainer(request):
     context_dict = {}
-
+    
+    if request.method == 'POST':
+        search = request.POST.get('search')
+        
+        try:
+            trainers = Trainer.objects.all()
+            
+            for trainer in trainers:
+                if trainer.t_account.username == search:
+                    output_trainer = trainer
+                    
+            if output_trainer:
+                context_dict['trainer'] = output_trainer
+                print(context_dict)
+        except Exception as e:
+            print("except")
+            print(e)
+            pass
+        
     return render(request, 'ptfinderApp/trainer.html', context=context_dict)
 
 def trainer_profile(request):

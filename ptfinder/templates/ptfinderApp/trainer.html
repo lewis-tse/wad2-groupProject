@@ -12,20 +12,29 @@
     <div class="container-fluid">
         <div class="row centre-content">
             <div class="col">
-                <h5>Rating:</h5>
-                {% comment retrieve rating %}{% endcomment %}
+					{% if trainer %}
+						<h5> general info </h5>
+					{% else %}
+						<h5> search for a trainer's username to see their info </h5>
+					{% endif %}
             </div>
         </div>
         <div class="row centre-content">
             <div class="col">
                 <br>
-                <h5>Price:</h5> {% comment retrieve price %}{% endcomment %}
+                <h5>Price: </h5> {{ trainer.price }}				
             </div>
         </div>
         <div class="row centre-content">
             <div class="col">
                 <br>
-                <h5>Contact Number: +## #### ### ###</h5> {% comment retrieve contact number or possibly multiple details? %}{% endcomment %}    
+                <h5>Contact Number:  {{ trainer.contact_no }} </h5>
+				<br>
+				<h5>First Name: {{trainer.t_account.first_name }} </h5>
+				<br>
+				<h5>Surname:  {{trainer.t_account.last_name }} </h5>
+				<br>
+				<h5>Email: {{trainer.t_account.email }} </h5>
             </div>
         </div>
         <div class="row">
@@ -41,7 +50,12 @@
 {% endblock %}
 
 {% block profile-grid-4 %}
-    Retrieve Trainer specialism data from models
+	<form id="trainer_search" method="post" action="{% url 'ptfinder:trainer' %}">
+	{% csrf_token %}
+
+	search: <input type="text" name="search" value="" size="50" />
+	<br>
+    <h5> This trainer specialised in: {{ trainer.specialism }} </h5>
 {% endblock %}
 
 {% block profile-grid-5 %}

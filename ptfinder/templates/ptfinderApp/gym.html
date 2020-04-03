@@ -2,7 +2,37 @@
 {% load static %}
 
 {% block title_block %}
+Gym
 {% endblock %}
 
 {% block body_block %}
+<h1> Search for gyms! </h1>
+<form id="gym_search" method="post" action="{% url 'ptfinder:gym' %}">
+	{% csrf_token %}
+
+	search: <input type="text" name="search" value="" size="50" />
+	<br />
+	
+	{% if gyms %}
+		{% if search_type == "specific" %} 
+			Gym Name: {{ gyms.name }} <br>
+			Gym Owner: {{ gyms.owner }} <br>
+			Gym Address: {{ gyms.addressline1 }} <br>
+			{{ gyms.addressline2 }} <br>
+			{{ gyms.address_postcode }} <br>
+			Gym City: {{ gyms.city }} <br>
+			gym Description: {{ gyms.description }} <br>
+
+		{% else %}
+			<ul>
+			{% for gym in gyms %}
+				<li> 
+					{{ gym.name }}
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	{% else %}
+		<strong> couldnt find any for ya chief, change the search and give her another spin! </strong>
+	{% endif %}
 {% endblock %}
