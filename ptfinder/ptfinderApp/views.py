@@ -27,62 +27,66 @@ def login(request):
     context_dict = {}
 
     return render(request, 'ptfinderApp/login.html', context=context_dict)
-    
+
 def register(request):
+    context_dict = {}
+    
     registered = False
     if request.method == 'POST':
-        user_form = UserForm(request.POST)
-        profile_form = UserProfileForm(request.POST)
-        
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-            profile = profile_form.save(commit=False)
-            profile.account = user
-            
-            if 'picture' in request.FILES:
-                profile.img = request.FILES['picture']
-                
-            profile.save()
+        userForm = UserForm(request.POST)
+        userProfileForm = UserProfileForm(request.POST)
+
+        print(userForm.is_valid())
+        print(userProfileForm.is_valid())
+
+        if userForm.is_valid() and userProfileForm.is_valid():
+            user = userForm.save()
+            if user.cleaned_data['password'] == user.cleaned_data['conpass']:
+                user.set_password(user.password)
+                user.save()
+
+            userProfile = userProfileForm.save(commit=False)
+            userProfile.account = user
+
+            if 'img' in request.FILES:
+                userProfile.img = request.FILES['img']
+
+            userProfile.save()
             registered = True
         else:
-            print(user_form.errors, profile_form.errors)
-    else:
-        user_form = UserForm()
-        profile_form = UserProfileForm()
-    
-    context_dict = {'user_form':user_form,'profile_form':profile_form,'registered':registered}
-    
+            print(userForm.errors, userProfileForm.errors)
+
+    context_dict = {'base_user_form': userForm, 'user_form': userProfileForm, 'registered': registered}
+
     return render(request, 'ptfinderApp/register.html', context=context_dict)
 
 def trainer_register(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(request.POST)
-        profile_form = TrainerProfileForm(request.POST)
+        trainer_form = TrainerProfileForm(request.POST)
         
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid() and trainer_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            profile = profile_form.save(commit=False)
-            profile.t_account = user
+            trainer = trainer_form.save(commit=False)
+            trainer.t_account = user
             
             if 'picture' in request.FILES:
-                profile.img = request.FILES['picture']
+                trainer.picture = request.FILES['picture']
                 
-            profile.save()
+            trainer.save()
             registered = True
         else:
-            print(user_form.errors, profile_form.errors)
+            print(user_form.errors, trainer_form.errors)
     else:
-        user_form = UserForm()
-        profile_form = TrainerProfileForm()
+        base_user_form = UserForm()
+        trainer_form = TrainerProfileForm()
     
-    context_dict = {'user_form':user_form,'profile_form':profile_form,'registered':registered}
+    context_dict = {'base_user_form': base_user_form, 'trainer_form': trainer_form,'registered':registered}
 
-    return render(request, 'ptfinderApp/trainer-register.html', context=context_dict)
+    return render(request, 'ptfinderApp/register-trainer.html', context=context_dict)
 
 @login_required
 def edit_profile(request, username):

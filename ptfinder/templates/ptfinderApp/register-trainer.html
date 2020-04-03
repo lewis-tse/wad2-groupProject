@@ -1,0 +1,142 @@
+{% extends 'ptfinderApp/base.html' %}
+{% load static %}
+
+{% block meta_block %}
+    {% if registered %}
+        <meta http-equiv="refresh" content="5" url="{% url 'ptfinder:index' %}">
+    {% endif %}
+{% endblock %}
+
+{% block title_block %}
+	Register
+{% endblock %}
+
+{% block body_block %}
+{% if registered %}
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thank you for Registering!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-3">
+                    Return to the <a href="{% url 'ptfinder:index' %}">Homepage</a> or go to your <a href="">Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+<div class="card bg-light w-50 mt-4 mx-auto">
+    <div class="card-body w-75 mx-auto">
+        <h4 class="card-title mt-3 text-center">Trainer Registration</h4>
+        <p class="text-center text-muted">Access More Trainees Than Ever Before</p>
+        <form id="trainer_form" method="post" action="{% url 'ptfinder:trainer_register' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if base_user_form.errors %}
+                {% for field in base_user_form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            {% if trainer_form.errors %}
+                {% for field in trainer_form %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                {{ base_user_form.username }}
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-12 col-md-6">
+                        <label for="first_name">Firstname:</label>
+                        {{ base_user_form.first_name }}
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="last_name">Surname:</label>
+                        {{ base_user_form.last_name }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-12 col-md-6">
+                        <label for="password">Password:</label>
+                        {{ base_user_form.password }}
+                        <small id="trainerPassHelp" class="form-text text-muted">Please use a strong password. <a href="https://www.ncsc.gov.uk/blog-post/three-random-words-or-thinkrandom-0">What is a strong password?</a></small>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="conPass">Confirm Password:</label>
+                        {{ trainer_form.conPass }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-12 col-md-6">
+                        <label for="contact_no">Contact No:</label>
+                        {{ trainer_form.contact_no }}
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="price">Price:</label>
+                        {{ trainer_form.price }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="specialism">Specialism:</label>
+                {{ trainer_form.specialism }}
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-12 col-md-4">
+                        <label for="sex">Sex:</label>
+                        {{ trainer_form.sex }}
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <label for="g_id">Gym:</label>
+                        {{ trainer_form.g_id }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="img">Profile Picture:</label>
+                {{ trainer_form.img }}
+            </div>
+            <div class="form-check" >
+                <input type="checkbox" class="form-check-input" id="privacy-check">
+                <label class="form-check-label small" for="privacy-check">I have read and understood the <a href=#>Privacy and GDPR Policy</a>.</label>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="form-row justify-content-center">
+                    <div class="col-4">
+                        <input type="submit" class="btn btn-block btn-dark mb-2" value="Register">
+                    </div>
+                </div>
+                <br />
+                <div class="form-row">
+                    <div class="col text-center">
+                        Already a member? <a href="{% url 'ptfinder:login' %}">Login</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+<script>
+    $(window).on('load',function(){
+        $('#registration-modal').modal('show');
+    });
+</script>
+{% endblock %}

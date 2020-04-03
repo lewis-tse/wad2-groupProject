@@ -33,9 +33,3 @@ body {
     height: 450px;
     padding: 0 24px;
 }
-
-.trainer-btn {
-    position: absolute;
-    bottom: 24px;
-    left: 0;
-}

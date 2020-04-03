@@ -1,23 +1,156 @@
 {% extends 'ptfinderApp/base.html' %}
 {% load static %}
 
+{% block meta_block %}
+    {% if registered %}
+    	<meta http-equiv="refresh" content="5" url="{% url 'ptfinder:index' %}">
+    {% endif %}
+{% endblock %}
+
 {% block title_block %}
 	Register
 {% endblock %}
 
 {% block body_block %}
-<h1>Register</h1>
 {% if registered %}
-<strong>Thanks for registering</strong>
-<a href="{% url 'ptfinder:index' %}">return to homepage</a><br />
+<div class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thank you for Registering!</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body py-3">
+				Return to the <a href="{% url 'ptfinder:index' %}">Homepage</a> or go to your <a href="">Profile</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% else %}
-<strong>Register here!</strong><br />
-<form id="user_form" method="post" action="{% url 'ptfinder:register' %}" enctype="multipart/form-data">
-	{% csrf_token %}
-	{{ user_form.as_p }}
-	{{ profile_form.as_p}}
-	<input type="submit" name="userSubmit" value="register" />
-</form>
-<a href="{% url 'ptfinder:trainer_register' %}">or sign up as a trainer</a><br />
+	<div class="card bg-light w-50 mt-4 mx-auto">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs" id="registrationTabs" role="tablist">
+				<li class="nav-item text-center w-50">
+					<a class="nav-link" id="trainer-tab" data-toggle="tab" href="#trainer" aria-controls="trainer" aria-selected="false">Trainers</a>
+				</li>
+				<li class="nav-item text-center w-50">
+					<a class="nav-link active" id="user-tab" data-toggle="tab" href="#user" aria-controls="home" aria-selected="true">Users</a>
+				</li>
+			</ul>
+		</div>
+		<div class="tab-content card-body mx-auto">
+			<div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab">
+				<button class="btn btn-link">Register Here</button>
+			</div>
+			<div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+				<h4 class="card-title mt-3 text-center">User Registration</h4>
+				<p class="text-center text-muted">Join Our Growing Network of Trainers and Trainees</p>
+				<form id="user_form" method="post" action="{% url 'ptfinder:register' %}" enctype="multipart/form-data">
+					{% csrf_token %}
+					{% if base_user_form.errors %}
+						{% for field in base_user_form %}
+							{% for error in field.errors %}
+								<div class="alert alert-danger">
+									<strong>{{ error|escape }}</strong>
+								</div>
+							{% endfor %}
+						{% endfor %}
+					{% endif %}
+					{% if user_form.errors %}
+						{% for field in user_form %}
+							<div class="alert alert-danger">
+								<strong>{{ error|escape }}</strong>
+							</div>
+						{% endfor %}
+					{% endif %}
+					<div class="form-group">
+						<label for="username">Username:</label>
+						{{ base_user_form.username }}
+					</div>
+					<div class="form-group">
+						<label for="id-email">Email:</label>
+						{{ base_user_form.email }}
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-12 col-md-6">
+								<label for="first_name">Firstname:</label>
+								{{ base_user_form.first_name }}
+							</div>
+							<div class="col-12 col-md-6">
+								<label for="last_name">Surname:</label>
+								{{ base_user_form.last_name }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-12 col-md-6">
+								<label for="password">Password:</label>
+								{{ base_user_form.password }}
+								<small id="userPassHelp" class="form-text text-muted">Please use a strong password. <a href="https://www.ncsc.gov.uk/blog-post/three-random-words-or-thinkrandom-0">What is a strong password?</a></small>
+							</div>
+							<div class="col-12 col-md-6">
+								<label for="conPass">Confirm Password:</label>
+								{{ user_form.conPass }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="experience">Experience:</label>
+						{{ user_form.experience }}
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-12 col-md-4">
+								<label for="sex">Sex:</label>
+								{{ user_form.sex }}
+							</div>
+							<div class="col-12 col-md-8">
+								<label for="location">Location:</label>
+								{{ user_form.location }}
+								<small id="userLocationHelp" class="form-text text-muted">DO NOT use your address. Use the town/city you live in/near.</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="id-img">Profile Picture:</label>
+						{{ user_form.img }}
+					</div>
+					<div class="form-check" >
+						<input type="checkbox" class="form-check-input" id="privacy-check" required>
+						<label class="form-check-label small" for="privacy-check">I have read and understood the <a href=#>Privacy and GDPR Policy</a>.</label>
+					</div>
+					<br />
+					<div class="form-group">
+						<div class="form-row justify-content-center">
+							<div class="col-4">
+								<input type="submit" class="btn btn-block btn-dark mb-2" value="Register">
+							</div>
+						</div>
+						<br />
+						<div class="form-row">
+							<div class="col text-center">
+								Already a member? <a href="{% url 'ptfinder:login' %}">Login</a><br />
+								Are you a trainer? <a href="{% url 'ptfinder:trainer_register' %}">Register here</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<form>
+			</form>
+		</div>
+	</div>
 {% endif %}
+
+<script>
+	$(document).ready(function() {
+		$(".nav-tabs a").click(function() {
+			$(this).tab("show");
+		});
+	});
+</script>
 {% endblock %}
