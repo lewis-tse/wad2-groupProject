@@ -1,47 +1,43 @@
-{% extends 'ptfinderApp/user-template.html' %}
+{% extends 'ptfinderApp/base.html' %}
 {% load static %}
 
 {% block title_block %}
+- Trainers
 {% endblock %}
 
-{% block profile-grid-1 %}
-    <img class="profile-img" src="https://via.placeholder.com/450" alt="">
-{% endblock %}
-
-{% block profile-grid-2 %}
-    <div class="container-fluid">
-        <div class="row centre-content">
-            <div class="col">
-					{% if trainer %}
-						<h5> general info </h5>
-					{% else %}
-						<h5> search for a trainer's username to see their info </h5>
-					{% endif %}
-            </div>
+{% block body_block %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Browse Trainers</h1>
+            <p class="lead">Find the perfect trainer for you!</p>
         </div>
-        <div class="row centre-content">
-            <div class="col">
-                <br>
-                <h5>Price: </h5> {{ trainer.price }}				
+    </div>
+    <div class="accordion" id="trainerAccordion">
+        <!-- for trainer in trainer_list -->
+            <div class="card">
+                <div class="card header collapsed p-2" id="generate HEADER with py" type="button" data-toggle="collapse" data-target="generate TARGET with py" aria-expanded="false" aria-controls="generated target">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-2">
+                            <img src="https://via.placeholder.com/150" class="img-fluid rounded trainer-img mx-auto d-block">
+                        </div>
+                        <div class="col my-auto">
+                            Trainer first name
+                        </div>
+                    </div>  
+                </div>
+                <div id="generated target" class="collapse show" aria-labelledby="generated header" data-parent="#trainerAccordion">
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>Full name</td>
+                                    <td class="text-truncate">Specialism</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row centre-content">
-            <div class="col">
-                <br>
-                <h5>Contact Number:  {{ trainer.contact_no }} </h5>
-				<br>
-				<h5>First Name: {{trainer.t_account.first_name }} </h5>
-				<br>
-				<h5>Surname:  {{trainer.t_account.last_name }} </h5>
-				<br>
-				<h5>Email: {{trainer.t_account.email }} </h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col trainer-btn">
-                <button type="button" onclick="window.location.href = '';" class="btn btn-dark btn-lg btn-block">Book Now</button>
-            </div>
-        </div>
     </div>
 {% endblock %}
 

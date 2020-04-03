@@ -1,3 +1,10 @@
+
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
+from django.urls import reverse
+from django.shortcuts import render, redirect
+from django.db.models import Q
+
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
@@ -16,17 +23,57 @@ def index(request):
 def user(request):
     context_dict = {}
 
-    return render(request, 'ptfinderApp/user.html', context=context_dict)
+
+    return render(request, 'ptfinderApp/profile.html', context=context_dict)
+  
+def user_login(request):
+
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+
+            if user.is_active:
+
+                login(request, user)
+                return redirect(reverse('ptfinder:index'))
+            else:
+
+                return HttpResponse("Your PTfinder account is disabled.")
+        else:
+    
+            print(f"Invalid login details: {username}, {password}")
+            return HttpResponse("Invalid login details supplied.")
+    else:
+
+        return render(request, 'ptfinderApp/login.html')
+
+def search(request):
+    template = 'ptfinderApp/index.html'
+
+    query = request.GET.get('q')
+
+    submitbutton= request.GET.get('submit')
+    firstname= Trainer.t_account.first_name
+
+    results = Trainer.objects.filter(Q(firstname__icontains=query) | Q(sex__icontains=query))
+
+    context = {
+        'results': results,
+        'submitbutton': submitbutton,
+        }
+    return render(request, template, context)
+
+   # return render(request, 'ptfinderApp/user.html', context=context_dict)
 
 def user_profile(request):
     context_dict = {}
 
     return render(request, 'ptfinderApp/user-profile.html', context=context_dict)
-    
-def login(request):
-    context_dict = {}
-
-    return render(request, 'ptfinderApp/login.html', context=context_dict)
 
 def register(request):
     context_dict = {}
@@ -217,7 +264,7 @@ def view_bookings(request, uservar):
     return render(request, 'ptfinderApp/view-bookings.html', context=context_dict)
     
 def trainer(request):
-    context_dict = {}
+    context_dict = {'trainer_list': get_trainer_list()}
     
     if request.method == 'POST':
         search = request.POST.get('search')
@@ -236,11 +283,19 @@ def trainer(request):
             print("except")
             print(e)
             pass
-        
+    
     return render(request, 'ptfinderApp/trainer.html', context=context_dict)
+
+def get_trainer_list(start_results=0,end_results=0):
+    trainer_list = {}
+    # You may find this helpful: https://docs.djangoproject.com/en/3.0/ref/models/querysets/
+
+    if end_results == 0:
+        pass
+
+    return trainer_list
 
 def trainer_profile(request):
     context_dict = {}
 
     return render(request, 'ptfinderApp/trainer-profile.html', context=context_dict)
-

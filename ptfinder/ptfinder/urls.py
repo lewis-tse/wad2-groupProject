@@ -19,9 +19,14 @@ from django.urls import include
 from ptfinderApp import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+from ptfinderApp.views import search
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('ptfinder/', include('ptfinderApp.urls', namespace="ptfinderApp")),
     path('admin/', admin.site.urls),
+    path('login/', views.user_login, name='login'),
+    url(r'^results/$', search, name="search"),
+    path('register/', views.register, name='register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

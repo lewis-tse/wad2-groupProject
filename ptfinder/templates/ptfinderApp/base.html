@@ -17,41 +17,104 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+		    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/243f54795c.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{% static 'ptfinder/css/main.css' %}">
+        <style>
+            body {
+              background-image:linear-gradient(-135deg, #372185 25%,#520b0f 100%);
+              background-size: cover;
+              background-repeat: no-repeat;
+              width: 100%;
+              height: 160vh;  
+            }
+
+            main {
+                width: 90vw;
+                margin: 0 auto;
+                padding: 30px 20px;
+                min-height: calc(100vh - 50px); 
+            }
+
+            footer {
+              width: 100%;
+              height: 60px;
+              flex-shrink: 0;
+              background-color: #134c7d;
+
+            }
+            .button {
+              background-color: transparent;
+              border-radius: 30px;
+              border: none;
+              color: white;
+              padding: 7px 24px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 6px 2px;
+              cursor: pointer;
+              border: 2px solid white;
+              position: absolute;
+              right: 50px;
+            }
+
+            .button:hover {
+              text-decoration: none;
+              background-color: white;
+              border-color: white;
+              color: black;
+            }
+
+            .navbar-fixed-top {
+            background: transparent;
+            }
+
+            .navbar-fixed-top.scrolled {
+              background-color:#0e1f36;
+              color: black;
+            }
+      </style>   
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">PTFinder</a>
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+                <a class="navbar-brand" href="{% url 'ptfinder:index' %}"><img src="{% static 'ptfinder/images/PTfinder_logo2.png'%}" alt="logo" width = "40" height = "50"/> </a>
+                <a class="navbar-brand" href="{% url 'ptfinder:index' %}">PTfinder</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Gyms</a>
+                            <a class="nav-link" href="{% url 'ptfinder:gym' %}">Gyms</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Trainers</a>
+                            <a class="nav-link" href="{% url 'ptfinder:trainer' %}">Trainers</a>
                         </li>
+                        
                         {% if user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Profile</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">My Bookings</a>
+                            </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="{% url 'ptfinder:login' %}">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Sign Up</a>
+                                <a class="nav-link" href="{% url 'ptfinder:register' %}">Register</a>
                             </li>
                         {% endif %}
                     </ul>
                 </div>
             </nav>
         </header>
+      
         <main style="flex: 1">
             <div class="container-fluid">
                 {% block body_block %}
@@ -63,5 +126,10 @@
                 Copyright 2020 | PTFinder
             </div> 
         </footer>
+        <script>
+            $(window).scroll(function(){
+            $('nav').toggleClass('scrolled', $(this).scrollTop() > 200);
+            });
+           </script>
     </body>
 </html>

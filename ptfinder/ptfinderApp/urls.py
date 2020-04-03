@@ -1,12 +1,17 @@
 from django.urls import path
 from ptfinderApp import views
-from django.urls import re_path
 
+from ptfinderApp.views import search
+from django.conf.urls import url
+
+from django.urls import re_path
 app_name = 'ptfinder'
+
 
 urlpatterns = [
     path('', views.index, name="index"),
     path('user/', views.user, name='user'),
+     url(r'^results/$', search, name="search"),
     path('user/login/', views.login , name='login'),
     path('user/register/', views.register , name='register'),
     path('user/register/trainer', views.trainer_register , name='trainer_register'),
