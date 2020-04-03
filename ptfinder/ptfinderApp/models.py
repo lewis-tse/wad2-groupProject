@@ -52,19 +52,19 @@ class Trainer(models.Model):
     sex = models.CharField(max_length=16, default="unspecified")
     img = models.ImageField(upload_to='trainerProfile_images',blank=True,default=None)
     price = models.CharField(max_length=10, default="unknown")
-    
-    def getGymName(self):
-        return self.g_id.name
-        
+
     def getName(self):
         return self.t_account.first_name + ' ' + self.t_account.last_name
+        
+    def getUsername(self):
+        return self.t_account.username
     
     def __str__(self):
         return self.t_account.username
     
 class Booking(models.Model):
     username = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    t_username = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    trainer_username = models.ForeignKey(Trainer, on_delete=models.CASCADE)
     datetime = models.DateTimeField(default=datetime.datetime.now())
     location = models.CharField(max_length=30)
     

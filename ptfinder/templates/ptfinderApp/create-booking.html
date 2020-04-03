@@ -1,0 +1,19 @@
+{% extends 'ptfinderApp/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Book A Session
+{% endblock %}
+
+{% block body_block %}
+    <h1> Book a Training Session </h1>
+    Fill out the form below and click submit to book your session <br />
+	Choose the username for your chosen trainer, alter the date and time for your session and say which city you'd like your session in. <br />
+	<br />
+    <form id="create-booking" method="post" action="{% url 'ptfinder:create_booking' account %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ booking_form.as_p }}
+        <input name="Submit" type="submit" value="Confirm Booking" />
+    </form>
+     
+{% endblock %}

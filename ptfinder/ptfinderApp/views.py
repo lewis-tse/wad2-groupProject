@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views import View
-from ptfinderApp.forms import UserForm, UserProfileForm, TrainerProfileForm
+from ptfinderApp.forms import UserForm, UserProfileForm, TrainerProfileForm, CreateBookingForm
 from ptfinderApp.models import UserProfile, Booking, Gym, Trainer
 
 def index(request):
@@ -42,7 +42,7 @@ def register(request):
             profile.account = user
             
             if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+                profile.img = request.FILES['picture']
                 
             profile.save()
             registered = True
@@ -70,7 +70,7 @@ def trainer_register(request):
             profile.t_account = user
             
             if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+                profile.img = request.FILES['picture']
                 
             profile.save()
             registered = True
@@ -172,9 +172,25 @@ def book(request):
 
     return render(request, 'ptfinderApp/book.html', context=context_dict)
 
-def create_booking(request):
-    context_dict = {}
-
+@login_required
+def create_booking(request, account):
+    user_profile = UserProfile.objects.get_or_create(account=request.user)[0]
+    
+    if request.method == 'POST':
+        booking_form = CreateBookingForm(request.POST)
+        
+        if booking_form.is_valid():
+            booking = booking_form.save(commit=False)
+            booking.username = user_profile
+            booking.save()
+            return redirect('ptfinder:index')
+        else:
+            print(booking_form.errors)
+    else:
+        booking_form = CreateBookingForm()
+    
+    context_dict = {'booking_form':booking_form}
+    
     return render(request, 'ptfinderApp/create-booking.html', context=context_dict)
 
 @login_required

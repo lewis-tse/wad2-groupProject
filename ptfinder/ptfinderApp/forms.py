@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from ptfinderApp.models import UserProfile, Trainer, Booking
+import datetime
 
 class UserForm(forms.ModelForm):
         password = forms.CharField(widget=forms.PasswordInput())
@@ -20,6 +21,8 @@ class TrainerProfileForm(forms.ModelForm):
         fields = ('g_id','contact_no','specialism','sex','img','price',)
         
 class CreateBookingForm(forms.ModelForm):
+    datetime = forms.DateTimeField(help_text="[yyyy-mm-dd HH:MM]", initial=datetime.datetime.now())
+    
     class Meta:
         model = Booking
-        fields = ('username', 't_username', 'datetime', 'location',)
+        fields = ('username','trainer_username', 'datetime', 'location',)
